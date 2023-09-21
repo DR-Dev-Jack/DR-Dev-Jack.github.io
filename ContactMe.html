@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Contact Form</title>
+    <link rel="stylesheet" href="./ContactMe.css">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script type="text/javascript">
+        (function() {
+            // https://dashboard.emailjs.com/admin/account
+            emailjs.init(secrets.MY_API);
+        })();
+    </script>
+    <script type="text/javascript">
+        window.onload = function() {
+            document.getElementById('contact-form').addEventListener('submit', function(event) {
+                event.preventDefault();
+                // generate a five digit number for the contact_number variable
+                this.contact_number.value = Math.random() * 100000 | 0;
+                // these IDs from the previous steps
+                emailjs.sendForm(${{secrets.MY_SERVICE}}, secrets.MY_TEMPLATE, this)
+                    .then(function() {
+                        console.log('SUCCESS!');
+                        message_send.innerHTML = "your message has been send";
+                    }, function(error) {
+                        console.log('FAILED...', error);
+                    });
+            });
+        }
+    </script>
+</head>
+<body>
+
+    <a id="back_button" href="index.html">Back</a>
+
+    <form id="contact-form">
+        <input type="hidden" name="contact_number">
+            <label id="name_label">Name:</label>
+            <input type="text" name="user_name">
+        </div>
+            <label id="email_label">Email:</label>
+            <input type="email" name="user_email">
+        <label id="message_label">Message:</label>
+        <textarea name="message"></textarea>
+        <input type="submit" value="Send">
+        <label id="message_send">message has not been send yet</label>
+    </form>
+</body>
+</html>
