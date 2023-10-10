@@ -7,7 +7,7 @@
     <script type="text/javascript">
         (function() {
             // https://dashboard.emailjs.com/admin/account
-            emailjs.init(secrets.MY_API);
+            emailjs.init(secrets.${{MY_API}});
         })();
     </script>
     <script type="text/javascript">
@@ -17,7 +17,7 @@
                 // generate a five digit number for the contact_number variable
                 this.contact_number.value = Math.random() * 100000 | 0;
                 // these IDs from the previous steps
-                emailjs.sendForm(${{secrets.MY_SERVICE}}, secrets.MY_TEMPLATE, this)
+                emailjs.sendForm(${{secrets.MY_SERVICE}}, secrets.${{MY_TEMPLATE}}, this)
                     .then(function() {
                         console.log('SUCCESS!');
                         message_send.innerHTML = "your message has been send";
